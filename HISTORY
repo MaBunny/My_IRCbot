@@ -1,0 +1,16 @@
+
+
+
+v0.0.01 -->Wrote the Settings class
+v0.0.02 -->Wrote the Metadata class
+v0.0.03 -->Wrote part of the Config class
+---------------------------------------------------------------------------------------------
+v0.0.04 -->Rewrote the Settings class
+v0.0.05~
+~v0.0.10-->Written some changes to Config class,Settings class and Metadata class
+
+v0.0.11 -->Wrote the Config::Take_Config() function
+v0.0.12 -->Wrote the Config::Show_Config() function
+v0.0.13 -->Wrote some minor changes to Config::ReadMetadata(),ReadData() classes
+v0.0.14 -->Wrote some minor changes to Config::ReadData() to correctly show Settings::Port.
+           
