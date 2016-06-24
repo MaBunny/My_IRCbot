@@ -11,6 +11,9 @@ v0.0.05~
 
 v0.0.11 -->Wrote the Config::Take_Config() function
 v0.0.12 -->Wrote the Config::Show_Config() function
-v0.0.13 -->Wrote some minor changes to Config::ReadMetadata(),ReadData() classes
-v0.0.14 -->Wrote some minor changes to Config::ReadData() to correctly show Settings::Port.
-           
+v0.0.13 -->Wrote some minor changes to Config::ReadMetadata(),ReadData() functions
+v0.0.14 -->Wrote some minor changes to Config::ReadData() to correctly show Settings::Port()
+v0.0.15 -->Completely rewrote the Metadata class,now contains only one data member
+v0.0.16 -->Wrote some changes in Config::ReadMetadata() to correctly read from the
+           Metadata.log file,the configurations now work(show correctly)          
+

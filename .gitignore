@@ -5,8 +5,7 @@ b.out
 Metadata.log
 Kikyosama
 sv2CB.sh
-gdb-compile.sh
 config.o
-
+GDB_Sessions
 
 
