@@ -1,5 +1,7 @@
 #include "./config.hpp"
 #include <iostream>
+#include <fstream>
+#include <limits>
 
 Settings Config :: GetInput()
 {
@@ -51,13 +53,11 @@ Metadata Config:: ReadMetadata()
        away precision when cast from const char* to char and
        char to unsigned int.
     */
-    unsigned int serv,chan,port,nick;
-    m_stream.getline((char*)&serv,5,'\n');
-    m_stream.getline((char*)&chan,5,'\n');
-    m_stream.getline((char*)&port,5,'\n');
-    m_stream.getline((char*)&nick,5,'\n');
-
-    m.GetData(serv,chan,port,nick);
+    std::string count;
+    std::getline(m_stream,count,'\n');
+    
+    unsigned int coun = std::stoi(count);
+    m.gCount(coun);
 
     m_stream.close();
 
@@ -80,10 +80,7 @@ void Config :: WriteMetadata(Metadata &m)
     if(m_stream.fail())
         throw;
 
-    m_stream<<m.rSize_Serv()<<std::endl
-            <<m.rSize_Chan()<<std::endl
-            <<m.rSize_Port()<<std::endl
-            <<m.rSize_Nick()<<std::endl;
+    m_stream<<m.rCount();
     m_stream.flush();
 
     m_stream.close();
@@ -156,7 +153,7 @@ void Config :: WriteData(Settings &s)
             <<s.rNick()<<std::endl;
     s_stream.flush();
 
-    m.Set_Sizes(s);
+    m.upCount();
     this->WriteMetadata(m);
 
 }
@@ -200,16 +197,18 @@ void Config :: Show_Config()
     if(s_stream.fail())
         throw;
 
-    std::streamsize Size = this->ReadSize();
-    std::streamsize rSize = Size/sizeof(meta);
+    Metadata m;
+    m = this->ReadMetadata();   
+ 
+    std::streamsize rSize = m.rCount();
 
-    for(;rSize>0;rSize--)
+    while( rSize > 0 )
     {
-        if(rSize < 0)
-            break;
         *settings = this->ReadData();
         this->PutInput(*settings);
-
+        --rSize;
+        if( rSize < 0 )
+           break;
     }
 
     s_stream.close();
