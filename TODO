@@ -10,11 +10,13 @@ v0.0.00~v0.1.00
 3)Make an Irc_Conn class to help in connections
 4)Make a Bot class to do some trivial tasks
 5)Make a Logger class to keep logs of the conns
+6)Make a Exception class to handle exceptions
 
 Notes
 -----
 
 i)Found some shortcomings in Config::ReadMetadata(),WriteMetadata(),ReadData() and 
-WriteData() function to store the sizes of a single Settings entry,doing corrections.
+WriteData() function to store the sizes of a single Settings entry,doing corrections. -->Done
+ii)Need to make exception calls when accesing a file currently not in the disk
 
 
