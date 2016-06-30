@@ -1,7 +1,7 @@
 #include "./config.hpp"
-#include <iostream>
 #include <fstream>
 #include <limits>
+#include <exception>
 
 Settings Config :: GetInput()
 {
@@ -16,8 +16,9 @@ Settings Config :: GetInput()
     std::cin>>p;std::cout<<"\n";
     std::cout<<"Enter the nickname for that channel:  ";
     std::cin>>n; std::cout<<"\n";
-
+    
     sett.getData(s,c,p,n);
+
     return sett;
 }
 
@@ -41,8 +42,12 @@ Metadata Config:: ReadMetadata()
     m_stream.open(meta_file.c_str(), std::ios::in);
     Metadata m;
 
-    if( !m_stream.is_open() )
-        throw (std::string) "Error....open file for read/write ops!!!";
+    try{ m_stream.is_open(); }
+    catch(std::ios_base::failure &e)
+    { 
+        std::cout<<"Found an exception while opening file....\n"
+                 <<e.what()<<std::endl;
+    }
     if(m_stream.bad())
         throw;
     if(m_stream.fail())
@@ -73,8 +78,12 @@ void Config :: WriteMetadata(Metadata &m)
 
     m_stream.open(meta_file.c_str(), std::ios::out);
 
-    if( !m_stream.is_open() )
-        throw (std::string) "Error....open file for read/write ops!!!";
+    try{ m_stream.is_open(); }
+    catch(std::ios_base::failure &e)
+    { 
+        std::cout<<"Found an exception while opening file....\n"
+                 <<e.what()<<std::endl; 
+    }
     if(m_stream.bad())
         throw;
     if(m_stream.fail())
@@ -109,12 +118,16 @@ Settings Config :: ReadData()
 {
     Settings s;
 
-    if( !s_stream.is_open() )
-        throw (std::string) "Error....open file for read/write ops!!!";
-    if(m_stream.bad())
-        throw;
-    if(m_stream.fail())
-        throw;
+    try{ s_stream.is_open(); }
+    catch(std::ios_base::failure &e)
+    { 
+        std::cout<<"Found an exception while opening file....\n"
+                 <<e.what()<<std::endl; 
+    }         
+    if(s_stream.bad())
+        throw std::ios_base::badbit;
+    if(s_stream.fail())
+        throw std::ios_base::failbit;
 
     //Metadata m =this->ReadMetadata();
     std::string serv,chan,port,nick;
@@ -125,11 +138,11 @@ Settings Config :: ReadData()
     std::getline(s_stream,nick,'\n');
 
     unsigned short por = static_cast<unsigned short>(std::stoi(port));
-
+ 
     s.gServer(serv); s.gChannel(chan);
     s.gPort(por);
     s.gNick(nick);
-
+    
     return s;
 }
 
@@ -140,12 +153,16 @@ void Config :: WriteData(Settings &s)
 {
     Metadata m;
 
-    if(!s_stream.is_open())
-        throw (std::string) "Error....open file for read/write ops!!!";
+    try{ s_stream.is_open(); }
+    catch(std::ios_base::failure &e)
+    { 
+        std::cout<<"Found an exception while opening file....\n"
+                 <<e.what()<<std::endl; 
+    }         
     if(s_stream.bad())
-        throw;
+        throw std::ios_base::badbit;
     if(s_stream.fail())
-        throw;
+        throw std::ios_base::failbit;
 
     s_stream<<s.rServer()<<std::endl
             <<s.rChannel()<<std::endl

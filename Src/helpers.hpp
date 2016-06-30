@@ -3,7 +3,8 @@
 
 #include <string>
 #include <algorithm>
-
+#include "./Settings_Exceptions.hpp"
+ 
 class Settings
     {
 private:
@@ -11,25 +12,67 @@ private:
 	std::string channel;
 	unsigned short port;
 	std::string nick;
-        friend class Config;
-
+        Settings_Exception *SE;
+        //friend class Config;
+ 
 public:
 
-	Settings() {}
+	Settings() { SE = new Settings_Exception; }
 	Settings (Settings &a) : server(a.server), channel(a.channel),
-	                         port(a.port), nick(a.nick) {}
-	~Settings() {}
+	                         port(a.port), nick(a.nick) 
+        {
+            try
+            {
+                SE = new Settings_Exception(a.server,a.channel,a.port);
+            }
+            catch(Settings_Exception &S)
+            {
+                std::cout<<"Oops....found an error!!!\n";
+                std::cout<<S.what()<<std::endl; 
+            }
+        }
+        Settings(std::string &Serv,std::string &Chan,unsigned short &Port,
+           std::string &Nick): server(Serv),channel(Chan),port(Port),nick(Nick)
+        {
+            try 
+            {
+                SE = new Settings_Exception(Serv,Chan,Port);
+            } 
+            catch(Settings_Exception &S)
+            {
+                std::cout<<"Oops....found an error!!!\n";
+                std::cout<<S.what()<<std::endl; 
+            } 
+        } 
+	~Settings() { delete SE; }
 
 	std::string rServer() { return this->server; }
 	std::string rChannel() { return this->channel; }
 	unsigned short rPort() { return this->port; }
 	std::string rNick() { return this->nick; }
 
-	void gServer(std::string &Serv) { server = Serv; }
-        void gChannel(std::string &Chan) { channel = Chan; }
-        void gPort(unsigned short &Port) { port = Port; }
-        void gPort(char* Port) { unsigned int *P = reinterpret_cast<unsigned int*>(Port);
-                                   port = *P; }
+	void gServer(std::string &Serv) 
+        { 
+          server = Serv; 
+          try { SE->gServ(server); }
+          catch(Settings_Exception &S)
+          {
+              std::cout<<"Oops....found an error!!!\n";
+              std::cout<<S.what()<<std::endl;
+          }    
+        }
+        void gChannel(std::string &Chan) 
+        { channel = Chan; SE->gChan(channel); }
+        void gPort(unsigned short &Port) 
+        { 
+          port = Port; 
+          try { SE->gPort(port); }
+          catch(Settings_Exception &S)
+          {
+              std::cout<<"Oops....found an error!!!\n";
+              std::cout<<S.what()<<std::endl;
+          }     
+        }
 	void gNick(std::string &Nick) { nick = Nick; }
 
 	//Get the data
@@ -37,6 +80,15 @@ public:
 			    unsigned short &p,std::string &n)
 	{
 	    server = serv; channel = chan; port = p; nick = n;
+            try
+            {
+               SE->gServ(server); SE->gChan(channel); SE->gPort(port);
+            }
+            catch(Settings_Exception &S)
+            {
+              std::cout<<"Oops....found an error!!!\n";
+              std::cout<<S.what()<<std::endl;
+            }  
 	}
 	inline void putData(std::string &serv,std::string &chan,
 			    unsigned short &p,std::string &n)

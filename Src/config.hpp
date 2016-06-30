@@ -3,7 +3,7 @@
 
 #include <string>
 #include <fstream>
-
+#include "./Exceptions.hpp"
 #include "./helpers.hpp"
 
 class Config
@@ -40,7 +40,7 @@ private:
 
 public:
 
-    Config(){ settings = new Settings; meta =new Metadata;
+    Config(){ settings = new Settings; meta = new Metadata;
               meta_file = "./meta.logs"; cfg_file = " ";
               s_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
               m_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);  }
@@ -54,7 +54,7 @@ public:
     Config(std::string &Cfg_file,std::string &Meta_file) : cfg_file(Cfg_file),
                                                            meta_file(Meta_file)
     {
-        settings = new Settings; meta =new Metadata;
+        settings = new Settings; meta = new Metadata;
         s_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
         m_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
     }
