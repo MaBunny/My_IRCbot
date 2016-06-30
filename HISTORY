@@ -16,8 +16,8 @@ v0.0.14 -->Wrote some minor changes to Config::ReadData() to correctly show Sett
 v0.0.15 -->Completely rewrote the Metadata class,now contains only one data member
 v0.0.16 -->Wrote some changes in Config::ReadMetadata() to correctly read from the
            Metadata.log file,the configurations now work(show correctly) 
-v0.0.17 -->Wrote a base Exception class
-v0.0.18 -->Wrote a derived Settings_Exception class from Exception class
+v0.0.17 -->Wrote a base Exception class.
+v0.0.18 -->Wrote a derived Settings_Exception class from Exception class.
 v0.0.20 -->Done some changes in Settings class to include Settings_Exception class
            in it.
 
