@@ -46,10 +46,4 @@ int main()
         std::cout<<"Oops...found an exception !!!\n";
         std::cout<<exceptions.what()<<std::endl;
     }
-    catch(std::string S)
-    {
-        std::cout<<"Oops...found an exception !!!\n";
-        std::cout<<S<<std::endl;
-    }
-
 }

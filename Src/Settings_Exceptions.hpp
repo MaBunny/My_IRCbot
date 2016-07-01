@@ -5,6 +5,7 @@
 #include <utility>
 #include <iostream>
 #include <cstdlib>
+#include <memory>
 
 /* Error types:-
  * i)No errors(error type 0)
@@ -103,20 +104,20 @@ public:
     //Main code handling errors
     Settings_Exception Catch()
     {
-        Settings_Exception *S = new Settings_Exception; ;
+        std::unique_ptr<Settings_Exception> S(new Settings_Exception);
         switch(msg_error)
         {
           case 0:  break;
           case 1:  WrongPort();
                    S->getMsg(msg);
-                   std::exit(EXIT_FAILURE); 
+                   //std::exit(EXIT_FAILURE); 
                    break;
           case 2:  DomainError();
                    S->getMsg(msg);
-                   std::exit(EXIT_FAILURE);   
+                   //std::exit(EXIT_FAILURE);   
                    break;   
         }  
-        throw *S;
+        throw *S;   
     }
 };
 
