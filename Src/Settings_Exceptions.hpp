@@ -93,7 +93,8 @@ public:
     
     ~Settings_Exception(void) {}
     const char* what() { return msg.c_str(); }
-    
+    void getMsg(std::string &Msg) { msg = Msg; }
+
     //Returning functions
     unsigned short rPort() { return Port; }
     std::string rServ() { return Serv; }
@@ -102,19 +103,20 @@ public:
     //Main code handling errors
     Settings_Exception Catch()
     {
-        Settings_Exception *S;
+        Settings_Exception *S = new Settings_Exception; ;
         switch(msg_error)
         {
           case 0:  break;
           case 1:  WrongPort();
-                   S = new Settings_Exception(msg); throw *S; 
+                   S->getMsg(msg);
                    std::exit(EXIT_FAILURE); 
                    break;
           case 2:  DomainError();
-                   S = new Settings_Exception(msg); throw *S;
+                   S->getMsg(msg);
                    std::exit(EXIT_FAILURE);   
                    break;   
         }  
+        throw *S;
     }
 };
 
