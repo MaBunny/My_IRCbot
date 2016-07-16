@@ -23,7 +23,7 @@ public:
         {
             try
             {
-                SE = new Settings_Exception(a.server,a.channel,a.port);
+                SE = new Settings_Exception(a.server,a.port);
             }
             catch(Settings_Exception &S)
             {
@@ -36,7 +36,7 @@ public:
         {
             try 
             {
-                SE = new Settings_Exception(Serv,Chan,Port);
+                SE = new Settings_Exception(Serv,Port);
             } 
             catch(Settings_Exception &S)
             {
@@ -54,7 +54,7 @@ public:
 	void gServer(std::string &Serv) 
         { 
           server = Serv; 
-          try { SE->gServ(server); }
+          try { SE->getServ(server); }
           catch(Settings_Exception &S)
           {
               std::cout<<"Oops....found an error!!!\n";
@@ -62,11 +62,11 @@ public:
           }    
         }
         void gChannel(std::string &Chan) 
-        { channel = Chan; SE->gChan(channel); }
+        { channel = Chan;  }
         void gPort(unsigned short &Port) 
         { 
           port = Port; 
-          try { SE->gPort(port); }
+          try { SE->getPort(port); }
           catch(Settings_Exception &S)
           {
               std::cout<<"Oops....found an error!!!\n";
@@ -82,7 +82,7 @@ public:
 	    server = serv; channel = chan; port = p; nick = n;
             try
             {
-               SE->gServ(server); SE->gChan(channel); SE->gPort(port);
+               SE->getServ(server); SE->getPort(port);
             }
             catch(Settings_Exception &S)
             {

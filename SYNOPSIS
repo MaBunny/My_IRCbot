@@ -1,0 +1,61 @@
+                                              SYNOPSIS
+                                              --------
+
+There are currently 3 classes in this program.The descriptions and uses of these classes are given as follows.
+
+1)Settings Class: 
+-----------------
+This class stores the Settings of the bot(server,nick,port,channel).This class has various getter and setter functions,plus comparing functions(both std::string and unsigned short) to compare two values.This class is used by the Config class to store the settings in a file called "Config.log".
+
+2)Metadata Class:
+----------------- 
+Currently this class contains the number of Settings entries in the "Config.log" file.Used by Config class to write to "Metadata.log" file.
+
+3)Config Class:
+--------------- 
+This class contains 2 of each std::string and std::fstream objects,ie,cfg_file and meta_file, and s_stream & m_stream. This class also contains an object of Settings and Metadata class called 'settings' and 'meta',both of which are pointers.
+Heres various functions of this class and their descriptions:-
+
+i)getFilename() : A void function,gets the name of the configuration file to store in cfg_file variable.
+ii)GetInput() : Helper function,gets the server,port,channel and nick from the user.
+iii)PutInput() : Helper function,displays the server,port,channel and nick to the user.Takes a Settings object as parameter.
+iv)ReadMetadata() : Its return type is Metadata.Used in ReadData(),opens the m_stream object with file meta_file in std::ios::in mode.Currently just reads Metadata::count variable from that file.Returns a Metadata object after reading from the file and passing the data to the Metadata object.
+v)WriteMetadata() : It takes a Metadata object as a parameter.Used in WriteData(),opens the m_stream object with file meta_file in std::ios::out mode.Writes the passed Metadata object to the file and then closes the stream.
+vi)ReadSize() : Its return type is std::streamsize. Reads the size of meta_file in the disk.
+vii)ReadData() : Its return type is Settings class.
+
+
+______________________________________________ 
+Yet to be Implemented:
+---------------------------------------
+
+1)Logger Class:
+---------------------------
+
+This class logs the operations of the program and any error messages to the disk.
+It has two data member, a std::string called 
+logfile,which stores the name of the log file
+and a std::fstream object, to do I/O ops.
+It has an enum too, LOG_STATES, with two values, APP and NO_APP. This will deter-
+mine if the logs will be stored in append 
+mode or not.
+
+It will hav the following member functions:-
+
+1) Logger() :- Default constructor.
+
+2)Logger(const std::string&) :- Parameterized
+constructor,initializes the std::string member
+data.
+
+3)Logger(const Logger&) :- Copy Constructor
+
+4)Logger(Logger&& ):- Move constructor
+
+5)Log(std::string&) :- Log the contents of 
+std::string& to the logfile using the fstream 
+object.It takes the value of LOG_STATES to 
+determine if it
+
+
+
