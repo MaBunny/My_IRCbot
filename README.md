@@ -8,6 +8,7 @@ COMPILING
 
 This project is primarily made on Debian Jessie,but it can be build on other distros if the following packages are available:-
 i)GNU C++ Compiler(v4.9 or greater)
+
 ii)libstdc++(v4.9 or greater)
 
 Plus any associative files for those 2 packages.
@@ -24,6 +25,7 @@ COMPILING WITH DEBUGGING OPTIONS
 This is useful for debugging purposes only,so try the above way.Or else the previous two packages will be required besides these:-
 
 i)GNU Debugger(gdb)
+
 ii)GNU Debugger Server(gdb-server)
 
 In the terminal opened from the repo folder,just type this line:-
