@@ -24,19 +24,15 @@ v)WriteMetadata() : It takes a Metadata object as a parameter.Used in WriteData(
 vi)ReadSize() : Its return type is std::streamsize. Reads the size of meta_file in the disk.
 vii)ReadData() : Its return type is Settings class.
 
-
-______________________________________________ 
-Yet to be Implemented:
----------------------------------------
-
-1)Logger Class:
----------------------------
+4)Logger Class:
+---------------
 
 This class logs the operations of the program and any error messages to the disk.
-It has two data member, a std::string called 
+It has three data member, a std::string called 
 logfile,which stores the name of the log file
-and a std::fstream object, to do I/O ops.
-It has an enum too, LOG_STATES, with two values, APP and NO_APP. This will deter-
+and a std::fstream object, to do I/O ops.The last one is a std::string
+called log which stores the Logger class' logs.
+It has an enum too, LOG_STATES, with two values, APP and NON_APP. This will deter-
 mine if the logs will be stored in append 
 mode or not.
 
@@ -52,10 +48,50 @@ data.
 
 4)Logger(Logger&& ):- Move constructor
 
-5)Log(std::string&) :- Log the contents of 
-std::string& to the logfile using the fstream 
+5)virtual void getLogs(const std::string&): Stores the parameters value
+ in log data member.Takes a string as a parameter.
+
+6)virtual void getLogs(const char*): Stores the parameter's value in log data member.Takes a const char* as a parameter.
+
+7)Log(unsigned int state = 0) :- Log the contents of 
+log data member to the logfile using the fstream 
 object.It takes the value of LOG_STATES to 
-determine if it
+determine if state is APP or NON_APP.
+
+8)Log(std::string&,unsigned int state = 0) :- Log the contents of 
+std::string parameter to the logfile using the fstream 
+object.It takes the value of LOG_STATES to determine if state is APP or NON_APP.
+
+9)Log(const char*,unsigned int state = 0) :- Log the contents of 
+const char* parameter to the logfile using the fstream object.It takes the value of LOG_STATES to determine if state is APP or NON_APP.
 
 
 
+______________________________________________________________________ 
+Yet to be Implemented:
+----------------------
+
+1)Connector class: This class will use SDL2's networking library to connect to the specified server  with the help of Config class.
+
+2)IRCHelper class: This class describes the IRC connecting protocols.It
+is used by means of transfer of function argument.
+
+3)IRCLogger class: This is a derived class of Logger class.It will log the conversations of the server.
+
+***In a LATER Release***
+----------------------
+
+1)Brainz class: This class has various functions to help the bot 
+assimilate the server conversations and talk in an intelligent manner.
+(Algorithms and NLP Knowleadge Required.)
+
+2)URLManager class: This class will grab any urls tht are thrown in the conversation,and will search it in a dictionary.If no previous instance of the said url exists,it will store tht url in an appropriate field.
+
+3)MockBlast class: it will look for any easy newbie and attack or mock him continuously until a triggered instance.It will also store the users and their ips in a table and check if any just-logged-in user
+ is a newbie or not.
+
+4)KaraokeMon class: It will sing some few lines of old songs.
+
+5)WeatherOne class: It will print the weather of a particular place in the server.
+
+6)Extension Manager class: It will be an easy way to load configurable extensions of the previous thoughts in the program via using dynamic libraries within the program with a class tht manages such extensions.(Linux Programming  Knowleadge Required.)

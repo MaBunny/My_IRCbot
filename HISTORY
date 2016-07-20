@@ -20,6 +20,9 @@ v0.0.17 -->Wrote a base Exception class.
 v0.0.18 -->Wrote a derived Settings_Exception class from Exception class.
 v0.0.20 -->Done some changes in Settings class to include Settings_Exception class
            in it.
+v0.0.21 -->Changed the Exceptions and Settings_Exceptions classes,need 
+           to make more adjustments.
 
+v0.0.24 -->Added a Logger class.
          
 
