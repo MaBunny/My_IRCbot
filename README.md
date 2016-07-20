@@ -1,19 +1,20 @@
 # My_IRCbot
 Welcome to My_IRCBot bot page,a custom IRC bot I am making for fun and the love of coding.
 
-This bot is in its primary stages,and unless I get lots of time to dedicated to this project,it will probably take a couple of months(maybe some years) to finish it.
+This bot is in its primary stages,and unless I get lots of time to dedicated to this project,it will probably take a couple of months (maybe some years) to finish it.
 
 COMPILING
 ---------
 
 This project is primarily made on Debian Jessie,but it can be build on other distros if the following packages are available:-
+
 i)GNU C++ Compiler(v4.9 or greater)
 
 ii)libstdc++(v4.9 or greater)
 
 Plus any associative files for those 2 packages.
 
-In the terminalopened from the repo folder,just type this(note: the present state of the program centres around the Config object,though later it could be changed easily changed as per the project advances):-
+In the terminal opened from the repo folder,just type this (note: the present state of the program centres around the Config object,though later it could be changed easily changed as per the project advances):-
 
 $: sh compile-without-flags.sh
 
