@@ -1,5 +1,5 @@
-                                             TODO
-                                             ----
+                                 TODO
+                                 ----
 
 
 
@@ -7,10 +7,26 @@ v0.0.00~v0.1.00
 ---------------
 1)Create a config class to store associated server configs -->done
 2)Create a metadata class to help in storing configs -->done
-3)Make an Irc_Conn class to help in connections
+3)Make an Connector class to help in connections -->doing
 4)Make a Bot class to do some trivial tasks 
-5)Make a Logger class to keep logs of the conns -->doing
+5)Make a Logger class to keep logs of the conns -->done
 6)Make a Exception class to handle exceptions -->done
+________________________________________________________________________
+
+Smaller Steps:
+--------------
+
+v0.0.25 -->Need to change the source code of the program,to log the    
+           running processes of the program.
+v0.0.26 -->Need to change the Settings_Exception class to make it more
+           polished.
+v0.0.27 -->Need to write some classes which handle IRC messages.
+v0.0.28 -->Need to write some classes which handle IRC  commands.
+v0.0.29 -->Need to include this classes together into a bigger class 
+           called Connector class,which also takes help of Settings  
+           class.
+
+_______________________________________________________________________
 
 Notes
 -----
