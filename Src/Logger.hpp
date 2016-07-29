@@ -105,7 +105,7 @@ public:
    
    void Log(unsigned in state = 0)
    {
-      if(state!=0 || state!=1)
+      if(state!=0 && state!=1)
         throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")
 
       if(state == APP)
@@ -120,7 +120,7 @@ public:
    }   
    void Log(const std::string& msg,unsigned int state=0)
    {
-      if(state!=0 || state!=1)
+      if(state!=0 && state!=1)
         throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")  
     
       if(state == APP)
@@ -136,7 +136,7 @@ public:
    
    void Log(const char* msg,unsigned int state=0)
    {
-      if(state!=0 || state!=1)
+      if(state!=0 && state!=1)
         throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")
       
       if(state == APP)
