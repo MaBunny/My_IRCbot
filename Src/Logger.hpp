@@ -8,7 +8,7 @@
 
 #include <fstream>
 #include <string>
-#include <exception>
+#include "./Exceptions.hpp"
 
 
 class Logger
@@ -105,9 +105,12 @@ public:
    
    void Log(unsigned in state = 0)
    {
+      if(state!=0 || state!=1)
+        throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")
+
       if(state == APP)
         logstream.open(logfile.c_str(),std::ios::out | std::ios::app);
-      else
+      else if(state == NON_APP)
         logstream.open(logfile.c_str(),std::ios::out);
       
       logstream<<logs<<std::endl;
@@ -117,9 +120,12 @@ public:
    }   
    void Log(const std::string& msg,unsigned int state=0)
    {
+      if(state!=0 || state!=1)
+        throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")  
+    
       if(state == APP)
         logstream.open(logfile.c_str(),std::ios::out | std::ios::app);
-      else
+      else if(state == NON_APP)
         logstream.open(logfile.c_str(),std::ios::out);
       
       logstream<<msg<<std::endl;
@@ -130,9 +136,12 @@ public:
    
    void Log(const char* msg,unsigned int state=0)
    {
+      if(state!=0 || state!=1)
+        throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")
+      
       if(state == APP)
         logstream.open(logfile.c_str(),std::ios::out | std::ios::app);
-      else
+      else if(state == NON_APP)
         logstream.open(logfile.c_str(),std::ios::out);
       
       logstream<<&msg<<std::endl;
