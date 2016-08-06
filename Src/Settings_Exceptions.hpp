@@ -5,6 +5,7 @@
 #include <utility>
 #include <iostream>
 #include <cstdlib>
+#include "./Constants.hpp"
 
 class Settings_Exception : public Exception
 {
@@ -13,14 +14,14 @@ private:
     std::string Serv;
 
     friend class Settings;
-     
+
     void getPort(const unsigned short& port)
     {   
        try
        {
           Port = port;
           if(Port !=6667 && Port !=6697)
-             throw Settings_Exception("Oops....Wrong port assigned !!!\n");
+             throw Settings_Exception(static_cast<std::string>("Oops....Wrong port assigned !!!\n"));
        }
        catch(Settings_Exception& error)
        {
@@ -32,10 +33,8 @@ private:
             std::cout<<"Oops...caught an error !!!"<<std::endl
                      <<e.what()<<std::endl;
         }
-        catch(...)
-        {
-            std::cout<<"Oops...caught an error !!!"<<std::endl;
-        }  
+        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned port = ") + std::to_string(Port));
+        logger.Log(0);  
     }
     
     void getServ(const std::string& serv)
@@ -44,7 +43,7 @@ private:
        {
           Serv = serv;
           if( Serv.substr(Serv.size()-3,100) != "com" && Serv.substr(Serv.size()-3,100) != "net")
-               throw Settings_Exception("Oops....Wrong server assigned !!!\n");  
+               throw Settings_Exception(static_cast<std::string>("Oops....Wrong server assigned !!!\n"));  
         }
         catch(Settings_Exception& error)
         {
@@ -56,10 +55,8 @@ private:
             std::cout<<"Oops...caught an error !!!"<<std::endl
                      <<e.what()<<std::endl;
         }
-        catch(...)
-        {
-            std::cout<<"Oops...caught an error !!!"<<std::endl;
-        }   
+        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned server = ") + Serv); 
+        logger.Log(0);
     }   
       
 public:
@@ -75,9 +72,9 @@ public:
         {
             Port = port; Serv = serv;
             if(Port != 6667 && Port != 6697)
-               throw Settings_Exception("Oops....Wrong port assigned !!!\n");
+               throw Settings_Exception(static_cast<std::string>("Oops....Wrong port assigned !!!\n"));
             else if( Serv.substr(Serv.size()-3,100) != "com" && Serv.substr(Serv.size()-3,100) != "net")
-               throw Settings_Exception("Oops....Wrong server assigned !!!\n");  
+               throw Settings_Exception(static_cast<std::string>("Oops....Wrong server assigned !!!\n"));  
         }
         catch(Settings_Exception& error)
         {
@@ -89,10 +86,9 @@ public:
             std::cout<<"Oops...caught an error !!!"<<std::endl
                      <<e.what()<<std::endl;
         }
-        catch(...)
-        {
-            std::cout<<"Oops...caught an error !!!"<<std::endl;
-        }   
+        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned port = ") + std::to_string(Port));
+        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned server = ") + Serv);    
+        logger.Log(0);  
     }
     
     ~Settings_Exception(void) {}
@@ -100,8 +96,18 @@ public:
     void getMsg(std::string &Msg) { this->_msg = Msg; }
 
     //Returning functions
-    unsigned short rPort() { return Port; }
-    std::string rServ() { return Serv; }
+    unsigned short rPort() 
+    { 
+       logger.getLogs(static_cast<std::string>("In Settings_Exception class: Returned Port = ") + std::to_string(Port));
+       logger.Log(0);
+       return Port; 
+    }
+    std::string rServ() 
+    { 
+       logger.getLogs(static_cast<std::string>("In Settings_Exception class: Returned Server = ") + Serv);
+       logger.Log(0); 
+       return Serv; 
+    }
     
 };
 

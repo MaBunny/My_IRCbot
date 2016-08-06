@@ -18,26 +18,42 @@ private:
    std::string logfile;
    std::fstream logstream;
    enum LOG_STATES { APP = 0, NON_APP };
- 
+
+
 public:
    Logger() 
    { 
       try
       {
          logs = " "; 
-         logfile = " "; 
+         logfile = "./log.log"; 
       }
       catch(const std::exception& e)
       {
          std::cerr<<"Oops...caught an error!!!\n"
                   <<e.what()<<std::endl;
-      }  
-   Logger(std::string Logfile)
+      }
+   }  
+   Logger(const std::string& Logfile = "./log.log")
    {
       try
       {
          logs = " ";
          logfile = Logfile;
+      }
+      catch(const std::exception& e)
+      {
+         std::cerr<<"Oops...caught an error!!!\n"
+                  <<e.what()<<std::endl;
+      }
+   }
+   
+   Logger(const char* Logfile = "./log.log")
+   {
+      try
+      {
+         logs = " ";
+         logfile.assign(Logfile);
       }
       catch(const std::exception& e)
       {
@@ -64,10 +80,10 @@ public:
    {
        try
       {
-         logs = lvalue.logs;
-         logfile = lvalue.logfile;
-         lvalue.logs = nullptr;
-         lvalue.logfile = nullptr;  
+         logs = rvalue.logs;
+         logfile = rvalue.logfile;
+         rvalue.logs = nullptr;
+         rvalue.logfile = nullptr;  
       }
       catch(const std::exception& e)
       {
@@ -82,14 +98,15 @@ public:
       {
          logs = lvalue.logs;
          logfile = lvalue.logfile;
-         return *this;
       }
       catch(const std::exception& e)
       {
          std::cerr<<"Oops...caught an error!!!\n"
                   <<e.what()<<std::endl;
       }
+      return *this;
    }     
+   
    
    virtual void getLogs(const std::string& msg)
    {
@@ -101,12 +118,12 @@ public:
    {
       logs.assign(msg);
       logs += "\n";
-   }
-   
-   void Log(unsigned in state = 0)
+   }   
+
+   void Log(int state = 0)
    {
       if(state!=0 && state!=1)
-        throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")
+        throw Exception(static_cast<std::string>("Logger Error: Wrong Log State...\n") + static_cast<std::string>("Log State = ") + std::to_string(state) + static_cast<std::string>(".\n"));
 
       if(state == APP)
         logstream.open(logfile.c_str(),std::ios::out | std::ios::app);
@@ -118,10 +135,11 @@ public:
       
       logstream.close();
    }   
+
    void Log(const std::string& msg,unsigned int state=0)
    {
       if(state!=0 && state!=1)
-        throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")  
+        throw Exception(static_cast<std::string>("Logger Error: Wrong Log State...\n") + static_cast<std::string>("Log State = ") + std::to_string(state) + static_cast<std::string>(".\n"));  
     
       if(state == APP)
         logstream.open(logfile.c_str(),std::ios::out | std::ios::app);
@@ -133,27 +151,11 @@ public:
       
       logstream.close();
    }
-   
-   void Log(const char* msg,unsigned int state=0)
-   {
-      if(state!=0 && state!=1)
-        throw Exception("Logger Error: Wrong Log State...\n" + "Log State = " + std::string::to_string(state) + ".\n")
-      
-      if(state == APP)
-        logstream.open(logfile.c_str(),std::ios::out | std::ios::app);
-      else if(state == NON_APP)
-        logstream.open(logfile.c_str(),std::ios::out);
-      
-      logstream<<&msg<<std::endl;
-      logstream.flush();
-     
-      logstream.close();
-   }
 
 }; 
     
 
-
+#endif
 
   
 

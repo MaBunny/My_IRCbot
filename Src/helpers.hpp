@@ -13,6 +13,7 @@ private:
 	unsigned short port;
 	std::string nick;
         Settings_Exception *SE;
+        
         //friend class Config;
  
 public:
@@ -30,7 +31,18 @@ public:
                 std::cout<<"Oops....found an error!!!\n";
                 std::cout<<S.what()<<std::endl; 
             }
+            std::string Msg;
+            
+            Msg = static_cast<std::string>("In Settings class: Created a Settings object with server = ") + a.server +  static_cast<std::string>(",Channel = ") + a.channel + static_cast<std::string>(",Port = ") + std::to_string(a.port) + static_cast<std::string>(",Nick = ") + a.nick + static_cast<std::string>(".");
+
+            logger.getLogs(Msg);
+            Msg = static_cast<std::string>("In Settings class: Created an Settings_Exception object with Server= ") + a.server + static_cast<std::string>("\n and Port = ") + std::to_string(a.port) + static_cast<std::string>(".");
+
+            logger.getLogs(Msg);
+            logger.Log(0);
         }
+
+
         Settings(std::string &Serv,std::string &Chan,unsigned short &Port,
            std::string &Nick): server(Serv),channel(Chan),port(Port),nick(Nick)
         {
@@ -43,6 +55,16 @@ public:
                 std::cout<<"Oops....found an error!!!\n";
                 std::cout<<S.what()<<std::endl; 
             } 
+            std::string Msg;
+           
+            Msg = static_cast<std::string>("In Settings class: Created a Settings object with server = ") + Serv +  static_cast<std::string>(",Channel = ") + Chan + static_cast<std::string>(",Port = ") +std::to_string(Port) + static_cast<std::string>(",Nick = ") +Nick+ static_cast<std::string>(".");
+ 
+            logger.getLogs(Msg);
+           
+            Msg = static_cast<std::string>("In Settings class: Created an Settings_Exception object with Server= ") + Serv + static_cast<std::string>("\n and Port = ") + std::to_string(Port) + static_cast<std::string>(".");  
+           
+            logger.getLogs(Msg);
+            logger.Log(0);
         } 
 	~Settings() { delete SE; }
 
@@ -59,10 +81,16 @@ public:
           {
               std::cout<<"Oops....found an error!!!\n";
               std::cout<<S.what()<<std::endl;
-          }    
+          }   
+          logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Server = ") + Serv +static_cast<std::string>(".")); 
+          logger.Log(0);  
         }
         void gChannel(std::string &Chan) 
-        { channel = Chan;  }
+        { 
+          channel = Chan;
+          logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Channel = ") + Chan +static_cast<std::string>("."));
+          logger.Log(0);
+        }
         void gPort(unsigned short &Port) 
         { 
           port = Port; 
@@ -72,8 +100,15 @@ public:
               std::cout<<"Oops....found an error!!!\n";
               std::cout<<S.what()<<std::endl;
           }     
+          logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Port = ") + std::to_string(Port) +static_cast<std::string>(".")); 
+          logger.Log(0);
         }
-	void gNick(std::string &Nick) { nick = Nick; }
+	void gNick(std::string &Nick) 
+        { 
+          nick = Nick;
+          logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Nick = ") + Nick +static_cast<std::string>(".")); 
+          logger.Log(0);
+        }
 
 	//Get the data
 	inline void getData(std::string &serv,std::string &chan,
@@ -89,11 +124,18 @@ public:
               std::cout<<"Oops....found an error!!!\n";
               std::cout<<S.what()<<std::endl;
             }  
+            logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Server = ") + serv +static_cast<std::string>(".")); 
+            logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Channel = ") + chan +static_cast<std::string>(".")); 
+            logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Port = ") + std::to_string(p) +static_cast<std::string>(".")); 
+            logger.getLogs(static_cast<std::string>("In Settings class: Used get function to store Nick  = ") + n +static_cast<std::string>(".")); 
+           
 	}
 	inline void putData(std::string &serv,std::string &chan,
 			    unsigned short &p,std::string &n)
 	{
 	    serv = server; chan = channel; p = port; n = nick;
+            logger.getLogs(static_cast<std::string>("In Settings class: Used put function to return Server = ") + server + static_cast<std::string>(",Channel = ") + channel + static_cast<std::string>(",Port = ") + std::to_string(port) + static_cast<std::string>(",Nick = ") + nick + static_cast<std::string>(".")); 
+          logger.Log(0); 
 	}
         //Compare two strings
 	inline bool Compare_To(std::string param1,std::string param2)
@@ -122,24 +164,36 @@ public:
 	    channel.clear();
 	    nick.clear();
 	    port = 0;
+            logger.getLogs(static_cast<std::string>("In Settings class: Cleared the data members."));
+            logger.Log(0);
 	}
 };
 
 class Metadata
 {
 private:
-    unsigned int count;
+    unsigned int count = 0;
     friend class Config;
 
     void clear()
     {
        count = 0;
     }
-    void gCount(unsigned int &Count) { count = Count; }
-    void upCount() { ++count; }    
+    void gCount(unsigned int &Count) 
+    { 
+       count = Count; 
+       logger.getLogs(static_cast<std::string>("In Metadata class: Inputed the number of Counts as: ") + std::to_string(count));
+       logger.Log(0);
+    }
+    void upCount() 
+    { 
+       count++;
+       logger.getLogs(static_cast<std::string>("In Metadata class: Updated Count by one. "));
+       logger.Log(0);  
+    }    
 
 public:
-    Metadata() {}
+    Metadata() { count=0; }
     Metadata(Metadata &a) : count(a.count) {}
     ~Metadata() {}
 
