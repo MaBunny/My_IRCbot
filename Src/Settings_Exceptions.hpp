@@ -90,6 +90,19 @@ public:
         logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned server = ") + Serv);    
         logger.Log(0);  
     }
+    Settings_Exception& operator=(const Settings_Exception& lvalue)
+    {
+       try
+       {
+       	   Port = lvalue.Port;
+       	   Serv.assign(lvalue.Serv);
+       }
+       catch(std::exception& e)
+       {
+       	   std::cout<<"Oops...caught an error !!!"<<std::endl
+                     <<e.what()<<std::endl;
+       }
+    }
     
     ~Settings_Exception(void) {}
     const char* what() { return _msg.c_str(); }

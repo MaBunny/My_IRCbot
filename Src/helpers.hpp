@@ -40,9 +40,25 @@ public:
 
             logger.getLogs(Msg);
             logger.Log(0);
+      }
+        
+        Settings& operator=(const Settings& lvalue)
+        {
+        	   try
+        	   {
+        	   	  server.assign(lvalue.server);
+        	   	  channel.assign(lvalue.channel);
+        	   	  nick.assign(lvalue.nick);
+        	   	  port = lvalue.port;
+        	   	  SE = lvalue.SE;
+        	   }
+        	   catch(std::exception& e)
+            {
+       	       std::cout<<"Oops...caught an error !!!"<<std::endl
+                     <<e.what()<<std::endl;
+            }
         }
-
-
+        
         Settings(std::string &Serv,std::string &Chan,unsigned short &Port,
            std::string &Nick): server(Serv),channel(Chan),port(Port),nick(Nick)
         {
