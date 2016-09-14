@@ -96,6 +96,7 @@ public:
        {
        	   Port = lvalue.Port;
        	   Serv.assign(lvalue.Serv);
+           return *this;
        }
        catch(std::exception& e)
        {

@@ -31,6 +31,5 @@ _______________________________________________________________________
 Notes
 -----
 
-i)Need to make exception calls when accesing a file currently not in the disk
-
+1)Need to make exception calls when accesing a file currently not in the disk
 

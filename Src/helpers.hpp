@@ -50,13 +50,14 @@ public:
         	   	  channel.assign(lvalue.channel);
         	   	  nick.assign(lvalue.nick);
         	   	  port = lvalue.port;
-        	   	  SE = lvalue.SE;
+                          return *this;
         	   }
         	   catch(std::exception& e)
-            {
-       	       std::cout<<"Oops...caught an error !!!"<<std::endl
-                     <<e.what()<<std::endl;
-            }
+                   {
+       	             std::cout<<"Oops...caught an error !!!"<<std::endl
+                              <<e.what()<<std::endl;
+                   }
+                   return *this;
         }
         
         Settings(std::string &Serv,std::string &Chan,unsigned short &Port,

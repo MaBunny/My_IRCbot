@@ -24,5 +24,7 @@ v0.0.21 -->Changed the Exceptions and Settings_Exceptions classes,need
            to make more adjustments.
 
 v0.0.24 -->Added a Logger class.
+v0.0.25 -->Changed the whole program to log data to disk
+v0.0.26 -->Fixed the Seg Fault
          
 
