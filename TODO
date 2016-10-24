@@ -3,7 +3,7 @@
 
 
 
-v0.0.00~v0.1.00
+v0.0.00~v0.2.00
 ---------------
 1)Create a config class to store associated server configs -->done
 2)Create a metadata class to help in storing configs -->done
@@ -11,7 +11,10 @@ v0.0.00~v0.1.00
 4)Make a Bot class to do some trivial tasks 
 5)Make a Logger class to keep logs of the conns -->done
 6)Make a Exception class to handle exceptions -->done
-________________________________________________________________________
+7)Make a Connector class to connect to a server 
+8)Make a MSGParser class to parse messages 
+9)Make a URLParser class to parse urls and save them 
+___________________________________________________________________________________
 
 Smaller Steps:
 --------------
@@ -25,8 +28,14 @@ v0.0.28 -->Need to write some classes which handle IRC  commands.
 v0.0.29 -->Need to include this classes together into a bigger class 
            called Connector class,which also takes help of Settings  
            class.
+v0.0.30 -->Need to change header files names to small case,move main.cpp to Src
+           and rename Src to src
+v0.0.31 -->Remove Constants.hpp and the static Logger object
+v0.0.32 -->Don't make functions in Logger inline,move them to a different source   
+           file and make Logger a singleton class.
+v0.0.33 -->Make a cmake file for the project
 
-_______________________________________________________________________
+___________________________________________________________________________________
 
 Notes
 -----
