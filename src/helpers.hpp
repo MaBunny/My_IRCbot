@@ -3,7 +3,7 @@
 
 #include <string>
 #include <algorithm>
-#include "./Settings_Exceptions.hpp"
+#include "./settings_Exceptions.hpp"
  
 class Settings
     {

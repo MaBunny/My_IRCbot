@@ -3,6 +3,8 @@
 #include <string>
 #include "./Src/config.hpp"
 
+Logger logger;
+
 int main()
 {
     try

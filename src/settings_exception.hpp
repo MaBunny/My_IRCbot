@@ -1,11 +1,13 @@
 #ifndef SETTINGS_EXCEPTION_HPP
 #define SETTINGS_EXCEPTION_HPP
 
-#include "./Exceptions.hpp"
 #include <utility>
 #include <iostream>
 #include <cstdlib>
-#include "./Constants.hpp"
+#include "./exception.hpp"
+#include "./logger.hpp"
+
+extern Logger logger;
 
 class Settings_Exception : public Exception
 {

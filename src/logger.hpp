@@ -8,7 +8,7 @@
 
 #include <fstream>
 #include <string>
-#include "./Exceptions.hpp"
+#include "./exception.hpp"
 
 
 class Logger
@@ -21,7 +21,8 @@ private:
 
 
 public:
-   Logger() 
+/*  
+  Logger() 
    { 
       try
       {
@@ -34,6 +35,8 @@ public:
                   <<e.what()<<std::endl;
       }
    }  
+*/
+
    Logger(const std::string& Logfile = "./log.log")
    {
       try
@@ -48,7 +51,7 @@ public:
       }
    }
    
-   Logger(const char* Logfile = "./log.log")
+/* Logger(const char* Logfile = "./log.log")
    {
       try
       {
@@ -61,7 +64,7 @@ public:
                   <<e.what()<<std::endl;
       }
    }
-   
+*/   
    Logger(const Logger& lvalue)
    {
       try
