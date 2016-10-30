@@ -26,5 +26,7 @@ v0.0.21 -->Changed the Exceptions and Settings_Exceptions classes,need
 v0.0.24 -->Added a Logger class.
 v0.0.25 -->Changed the whole program to log data to disk
 v0.0.26 -->Fixed the Seg Fault
+v0.0.27 -->Renamed Src folder as src,removed Constants.hpp and static Logger     
+           object,performed necessary changes in other headers too.
          
 

@@ -16,24 +16,28 @@ v0.0.00~v0.2.00
 9)Make a URLParser class to parse urls and save them 
 ___________________________________________________________________________________
 
-Smaller Steps:
+The Steps:
 --------------
 
-v0.0.25 -->Need to change the source code of the program,to log the    
-           running processes of the program.
-v0.0.26 -->Need to change the Settings_Exception class to make it more
+[+] --> Done
+[-] --> Not done
+[?] --> To be done/need to do/currently doing
+
+
+[+] -->Need to change the source code of the program,to log the    
+       running processes of the program.
+[-] -->Need to change the Settings_Exception class to make it more
            polished.
-v0.0.27 -->Need to write some classes which handle IRC messages.
-v0.0.28 -->Need to write some classes which handle IRC  commands.
-v0.0.29 -->Need to include this classes together into a bigger class 
-           called Connector class,which also takes help of Settings  
+[-] -->Need to write some classes which handle IRC messages.
+[-] -->Need to write some classes which handle IRC  commands.
+[-] -->Need to include this classes together into a bigger class 
+       called Connector class,which also takes help of Settings  
            class.
-v0.0.30 -->Need to change header files names to small case,move main.cpp to Src
-           and rename Src to src
-v0.0.31 -->Remove Constants.hpp and the static Logger object
-v0.0.32 -->Don't make functions in Logger inline,move them to a different source   
-           file and make Logger a singleton class.
-v0.0.33 -->Make a cmake file for the project
+[+] -->Need to change header files names to small case,rename Src to src
+[+] -->Remove Constants.hpp and the static Logger object
+[?] -->Don't make functions in Logger inline,move them to a different source   
+       file and make Logger a singleton class.
+[?] -->Make a cmake file for the project
 
 ___________________________________________________________________________________
 
