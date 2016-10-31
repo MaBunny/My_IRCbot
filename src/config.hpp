@@ -3,8 +3,7 @@
 
 #include <string>
 #include <fstream>
-#include "./exception.hpp"
-#include "./helpers.hpp"
+#include "helpers.hpp"
 
 class Config
 {

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include "./Src/config.hpp"
+#include "config.hpp"
 
 Logger logger;
 

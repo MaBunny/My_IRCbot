@@ -1,4 +1,4 @@
-#include "./config.hpp"
+#include "config.hpp"
 #include <fstream>
 #include <limits>
 #include <exception>
