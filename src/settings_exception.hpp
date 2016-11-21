@@ -16,7 +16,7 @@ private:
 
     friend class Settings;
 
-    void getPort(const unsigned short& port)
+    void GetPort(const unsigned short& port)
     {   
        try
        {
@@ -34,11 +34,11 @@ private:
             std::cout<<"Oops...caught an error !!!"<<std::endl
                      <<e.what()<<std::endl;
         }
-        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned port = ") + std::to_string(Port));
+        logger.GetLogs(static_cast<std::string>("In Settings_Exception class: Assigned port = ") + std::to_string(Port));
         logger.Log(0);  
     }
     
-    void getServ(const std::string& serv)
+    void GetServ(const std::string& serv)
     {
        try
        {
@@ -56,7 +56,7 @@ private:
             std::cout<<"Oops...caught an error !!!"<<std::endl
                      <<e.what()<<std::endl;
         }
-        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned server = ") + Serv); 
+        logger.GetLogs(static_cast<std::string>("In Settings_Exception class: Assigned server = ") + Serv); 
         logger.Log(0);
     }   
       
@@ -87,8 +87,8 @@ public:
             std::cout<<"Oops...caught an error !!!"<<std::endl
                      <<e.what()<<std::endl;
         }
-        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned port = ") + std::to_string(Port));
-        logger.getLogs(static_cast<std::string>("In Settings_Exception class: Assigned server = ") + Serv);    
+        logger.GetLogs(static_cast<std::string>("In Settings_Exception class: Assigned port = ") + std::to_string(Port));
+        logger.GetLogs(static_cast<std::string>("In Settings_Exception class: Assigned server = ") + Serv);    
         logger.Log(0);  
     }
     Settings_Exception& operator=(const Settings_Exception& lvalue)
@@ -111,15 +111,15 @@ public:
     void getMsg(std::string &Msg) { this->_msg = Msg; }
 
     //Returning functions
-    unsigned short rPort() 
+    unsigned short RetPort() 
     { 
-       logger.getLogs(static_cast<std::string>("In Settings_Exception class: Returned Port = ") + std::to_string(Port));
+       logger.GetLogs(static_cast<std::string>("In Settings_Exception class: Returned Port = ") + std::to_string(Port));
        logger.Log(0);
        return Port; 
     }
-    std::string rServ() 
+    std::string RetServ() 
     { 
-       logger.getLogs(static_cast<std::string>("In Settings_Exception class: Returned Server = ") + Serv);
+       logger.GetLogs(static_cast<std::string>("In Settings_Exception class: Returned Server = ") + Serv);
        logger.Log(0); 
        return Serv; 
     }

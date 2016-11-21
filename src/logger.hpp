@@ -75,13 +75,13 @@ public:
         
    
    
-   virtual void getLogs(const std::string& msg)
+   virtual void GetLogs(const std::string& msg)
    {
       logs = msg;
       logs += "\n";  
    }
    
-   virtual void getLogs(const char* msg)
+   virtual void GetLogs(const char* msg)
    {
       logs.assign(msg);
       logs += "\n";
