@@ -10,10 +10,41 @@ class Settings
 private:
         std::string server;
 	std::string channel;
-	unsigned short port;
+	unsigned int port;
 	std::string nick;
         Settings_Exception *SE;
  
+        //Compare two strings
+	inline bool Compare_To(std::string param1,std::string param2)
+	{
+	    std::transform(param1.begin(),param1.end(),param1.begin(),
+			   std::ptr_fun<int,int>(std::toupper));
+	    std::transform(param2.begin(),param2.end(),param2.begin(),
+			   std::ptr_fun<int,int>(std::toupper));
+	    if( param1.compare(param2) == 0 )
+		return true;
+	    else if( param1.compare(param2) != 0 )
+                return false;
+	}
+	//Compare two unsigned shorts
+	inline bool Compare_To(unsigned int param1,unsigned int param2)
+	{
+	    if( param1 == param2 )
+		return true;
+	    else if ( param1 != param2 )
+		return false;
+	}
+	//Clear the contents of the variables
+	inline void Clear()
+	{
+	    server.clear();
+	    channel.clear();
+	    nick.clear();
+	    port = 0;
+            logger.GetLogs(static_cast<std::string>("In Settings class: Cleared the data members."));
+            logger.Log(0);
+	} 
+
 public:
 
 	Settings() { SE = new Settings_Exception; }
@@ -58,7 +89,7 @@ public:
                    return *this;
         }
         
-        Settings(std::string &Serv,std::string &Chan,unsigned short &Port,
+        Settings(std::string &Serv,std::string &Chan,unsigned int &Port,
            std::string &Nick): server(Serv),channel(Chan),port(Port),nick(Nick)
         {
             try 
@@ -106,7 +137,7 @@ public:
           logger.GetLogs(static_cast<std::string>("In Settings class: Used get function to store Channel = ") + Chan +static_cast<std::string>("."));
           logger.Log(0);
         }
-        void GetPort(unsigned short &Port) 
+        void GetPort(unsigned int &Port) 
         { 
           port = Port; 
           try { SE->GetPort(port); }
@@ -127,7 +158,7 @@ public:
 
 	//Get the data
 	inline void GetData(std::string &serv,std::string &chan,
-			    unsigned short &p,std::string &n)
+			    unsigned int &p,std::string &n)
 	{
 	    server = serv; channel = chan; port = p; nick = n;
             try
@@ -146,41 +177,11 @@ public:
            
 	}
 	inline void PutData(std::string &serv,std::string &chan,
-			    unsigned short &p,std::string &n)
+			    unsigned int &p,std::string &n)
 	{
 	    serv = server; chan = channel; p = port; n = nick;
             logger.GetLogs(static_cast<std::string>("In Settings class: Used put function to return Server = ") + server + static_cast<std::string>(",Channel = ") + channel + static_cast<std::string>(",Port = ") + std::to_string(port) + static_cast<std::string>(",Nick = ") + nick + static_cast<std::string>(".")); 
           logger.Log(0); 
-	}
-        //Compare two strings
-	inline bool Compare_To(std::string param1,std::string param2)
-	{
-	    std::transform(param1.begin(),param1.end(),param1.begin(),
-			   std::ptr_fun<int,int>(std::toupper));
-	    std::transform(param2.begin(),param2.end(),param2.begin(),
-			   std::ptr_fun<int,int>(std::toupper));
-	    if( param1.compare(param2) == 0 )
-		return true;
-	    else if( param1.compare(param2) != 0 )
-                return false;
-	}
-	//Compare two unsigned shorts
-	inline bool Compare_To(unsigned short param1,unsigned short param2)
-	{
-	    if( param1 == param2 )
-		return true;
-	    else if ( param1 != param2 )
-		return false;
-	}
-	//Clear the contents of the variables
-	inline void Clear()
-	{
-	    server.clear();
-	    channel.clear();
-	    nick.clear();
-	    port = 0;
-            logger.GetLogs(static_cast<std::string>("In Settings class: Cleared the data members."));
-            logger.Log(0);
 	}
 };
 
@@ -190,7 +191,7 @@ private:
     unsigned int count = 0;
     friend class Config;
 
-    void clear()
+    void Cear()
     {
        count = 0;
     }
@@ -212,7 +213,7 @@ public:
     Metadata(Metadata &a) : count(a.count) {}
     ~Metadata() {}
 
-    unsigned int rCount() { return count; }
+    unsigned int RetCount() { return count; }
 
     bool Compare_To(unsigned int &param1,unsigned int &param2)
     {

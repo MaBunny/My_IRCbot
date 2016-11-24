@@ -2,11 +2,12 @@
 #include <fstream>
 #include <limits>
 #include <exception>
+#include <sstream>
 
 Settings Config :: GetInput()
 {
     std::string s,c,n;
-    unsigned short p;
+    unsigned int p;
  
     Settings sett;
     logger.GetLogs( static_cast<std::string>("In Config class: In GetInput() ftor, created a Settings object.") );
@@ -31,7 +32,7 @@ Settings Config :: GetInput()
 void Config :: PutInput(Settings &sett)
 {
     std::string s,n,c;
-    unsigned short p;
+    unsigned int p;
     logger.GetLogs( static_cast<std::string>("In Config class: In PutData() ftor, transferring data from Settings object to temporary variables.") );
     sett.PutData(s,c,p,n);
     std::cout<<"The server IPv4 address is: "<<s<<std::endl
@@ -47,7 +48,8 @@ void Config :: PutInput(Settings &sett)
 
 Metadata Config:: ReadMetadata()
 {
-
+    
+    std::fstream m_stream;	
     m_stream.open(meta_file.c_str(), std::ios::in);
     Metadata m;
     
@@ -71,7 +73,7 @@ Metadata Config:: ReadMetadata()
     std::string count;
     std::getline(m_stream,count,'\n');
     
-    unsigned int coun = std::stoi(count);
+    unsigned int coun = std::stoul(count);
     m.GetCount(coun);
     
     logger.GetLogs( static_cast<std::string>("In Config class: In ReadMetadata() ftor,stored the count variable in Metadata object.Now returning it.") ); 
@@ -87,6 +89,7 @@ Metadata Config:: ReadMetadata()
 void Config :: WriteMetadata(Metadata &m)
 {
 
+    std::fstream m_stream;
     m_stream.open(meta_file.c_str(), std::ios::out);
     logger.GetLogs( static_cast<std::string>("In Config class: In ReadMetadata() ftor,opened m_stream object in ios::out file mode.") );
      
@@ -103,7 +106,7 @@ void Config :: WriteMetadata(Metadata &m)
     
     logger.GetLogs( static_cast<std::string>("In Config class: In ReadMetadata() ftor,done reading the count variable in Metadata object.Now writing it to file.") ); 
     logger.Log(0);
-    m_stream<<m.rCount();
+    m_stream<<m.RetCount();
     m_stream.flush();
 
     m_stream.close();
@@ -114,8 +117,9 @@ void Config :: WriteMetadata(Metadata &m)
 std::streamsize Config :: ReadSize()
 {
 
+    std::fstream m_stream;	
     m_stream.open(meta_file.c_str(),std::ios::in);
-     logger.GetLogs( static_cast<std::string>("In Config class: In ReadSize() ftor,opened m_stream object in ios::in file mode.") );
+    logger.GetLogs( static_cast<std::string>("In Config class: In ReadSize() ftor,opened m_stream object in ios::in file mode.") );
     std::streamsize Size;
     m_stream.ignore(std::numeric_limits<std::streamsize>::max());
     Size = m_stream.gcount();
@@ -134,6 +138,9 @@ std::streamsize Config :: ReadSize()
 Settings Config :: ReadData()
 {
     Settings s;
+    std::fstream s_stream;
+    	
+    s_stream.open(cfg_file.c_str(),std::ios::in);
     logger.GetLogs( static_cast<std::string>("In Config class: In ReadData() ftor,created a Settings object.") );
  
     try{ s_stream.is_open(); }
@@ -155,8 +162,10 @@ Settings Config :: ReadData()
     std::getline(s_stream,chan,'\n');
     std::getline(s_stream,port,'\n');
     std::getline(s_stream,nick,'\n');
-
-    unsigned short por = static_cast<unsigned short>(std::stoi(port));
+    
+    std::istringstream temp(port);
+    unsigned int por;
+    temp>>por;
  
     s.GetServer(serv); s.GetChannel(chan);
     s.GetPort(por);
@@ -171,6 +180,10 @@ Settings Config :: ReadData()
 
 void Config :: WriteData(Settings &s)
 {
+    std::fstream s_stream;
+    s_stream.exceptions(std::fstream::badbit | std::fstream::failbit);	
+    s_stream.open(cfg_file.c_str(),std::ios::out);
+	
     Metadata m;
     logger.GetLogs( static_cast<std::string>("In Config class: In WriteData() ftor,created a Metadata object.Now proceeding to write the Settings object.") );
  
@@ -202,20 +215,22 @@ void Config :: WriteData(Settings &s)
 
 void Config :: Take_Config()
 {
-
-    s_stream.open(cfg_file.c_str(), std::ios::out);
+    //std::fstream s_stream;
+    //s_stream.exceptions(std::fstream::badbit | std::fstream::failbit);	
+    //s_stream.open(cfg_file.c_str(), std::ios::out);
+    
     logger.GetLogs( static_cast<std::string>("In Config class: In Take_Config() ftor,opened s_stream object in ios::in file mode.") );
  
-    if(s_stream.bad())
-        throw;
-    if(s_stream.fail())
-        throw;
+    //if(s_stream.bad())
+     //   throw;
+    //if(s_stream.fail())
+    //    throw;
 
     char ans = 'y';
     while( ans == 'y' || ans == 'Y' )
     {
-        *settings = this->GetInput();
-        this->WriteData(*settings);
+        settings = this->GetInput();
+        this->WriteData(settings);
         logger.GetLogs( static_cast<std::string>("In Config class: In Take_Config() ftor,done taking a settings config.") );
         std::cout<<"Do you want to add more??? (Y/N): ";
         std::cin>>ans;
@@ -223,7 +238,7 @@ void Config :: Take_Config()
             break;
     }
     logger.GetLogs( static_cast<std::string>("In Config class: In Take_Config() ftor,going out of the fuction.") );
-    s_stream.close();
+    //s_stream.close();
     logger.Log(0); 
 }
 
@@ -232,8 +247,9 @@ void Config :: Take_Config()
 
 void Config :: Show_Config()
 {
-
+    std::fstream s_stream;	
     s_stream.open(cfg_file.c_str(), std::ios::in);
+    s_stream.exceptions(std::fstream::badbit | std::fstream::failbit);
     logger.GetLogs( static_cast<std::string>("In Config class: In Show_Config() ftor,opened s_stream object in ios::in file mode.") );
  
     if(s_stream.bad())
@@ -242,15 +258,16 @@ void Config :: Show_Config()
         throw;
 
     Metadata m;
-    m = this->ReadMetadata();   
+    m = this->ReadMetadata();
+    std::cout<<"Metadata object contains: "<<m.RetCount()<<std::endl;    
     logger.GetLogs( static_cast<std::string>("In Config class: In Show_Config() ftor,created a Metadata object and read into it.") );
-    unsigned int rSize = m.rCount();
+    unsigned int rSize = m.RetCount();
     logger.GetLogs( static_cast<std::string>("In Config class: In Show_Config() ftor,read the count of the Metadata object as = ") + std::to_string(rSize) + static_cast<std::string>(".") );
     while( rSize > 0 )
     {
-        *settings = this->ReadData();
+        settings = this->ReadData();
         logger.GetLogs( static_cast<std::string>("In Config class: In Show_Config() ftor,read into the Settings* settings object.") ); 
-        this->PutInput(*settings);
+        this->PutInput(settings);
         logger.GetLogs( static_cast<std::string>("In Config class: In Show_Config() ftor,outputed the values of the Settings* settings object.") );  
         --rSize;
         logger.GetLogs( static_cast<std::string>("In Config class: In Show_Config() ftor,subtracted one from rSize,its value now is = ") + std::to_string(rSize) + static_cast<std::string>(".") );   

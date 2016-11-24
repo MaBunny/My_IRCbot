@@ -11,11 +11,8 @@ private:
     std::string cfg_file;
     std::string meta_file;
 
-    std::fstream s_stream; //Settings Stream for I/O
-    std::fstream m_stream; //Metadata Stream for I/O
-
-    Settings *settings;
-    Metadata *meta;
+    Settings settings;
+    Metadata meta;
 
     void GetFilename(std::string &a)
     {
@@ -41,46 +38,36 @@ public:
 
     Config()
     { 
-       settings = new Settings; meta = new Metadata;
        meta_file = "./meta.logs"; cfg_file = " ";
        logger.GetLogs( static_cast<std::string>("In Config class: Created a Config object with meta_file = ") + meta_file + static_cast<std::string>(" ,and default cfg_file. ") );
        
        logger.GetLogs( static_cast<std::string>("In Config class: Also created a Settings object and Metadata object.") );
        logger.Log(0); 
-       s_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
-       m_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);  
     }
     
     Config(std::string &file) : cfg_file(file)
     {
-       settings = new Settings; meta =new Metadata;
        meta_file = "./meta.logs";
        logger.GetLogs( static_cast<std::string>("In Config class: Created a Config object.") );
        logger.GetLogs( static_cast<std::string>("In Config class: meta_file is = ") + meta_file + static_cast<std::string>(" .") );
        logger.GetLogs( static_cast<std::string>("In Config class: cfg_file is = ") + cfg_file + static_cast<std::string>(" .") );
        logger.GetLogs( static_cast<std::string>("In Config class: Also created a Settings object and Metadata object.") );
        logger.Log(0);
-       s_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
-        m_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
     }
     Config(std::string &Cfg_file,std::string &Meta_file) : cfg_file(Cfg_file),
                                                            meta_file(Meta_file)
     {
-        settings = new Settings; meta = new Metadata;
         logger.GetLogs( static_cast<std::string>("In Config class: Created a Config object.") );
         logger.GetLogs( static_cast<std::string>("In Config class: meta_file is = ") + meta_file + static_cast<std::string>(" .") );
         logger.GetLogs( static_cast<std::string>("In Config class: cfg_file is = ") + cfg_file + static_cast<std::string>(" .") );
         logger.GetLogs( static_cast<std::string>("In Config class: Also created a Settings object and Metadata object.") );
         logger.Log(0);
-        s_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
-        m_stream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
     }
 
     ~Config() 
      { 
         logger.GetLogs( static_cast<std::string>("In Config class: Deleted Config object.") );
         logger.Log(0);
-        delete settings; delete meta; 
      }
 
     //Take config from user input
